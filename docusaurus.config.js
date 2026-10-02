@@ -6,7 +6,7 @@ const config = {
   url: 'http://localhost:8080',
   baseUrl: '/',
 
-  organizationName: 'ginocowork',
+  organizationName: 'Advantech-IIoT',
   projectName: 'TestWiki',
 
   onBrokenLinks: 'throw',
@@ -26,7 +26,7 @@ const config = {
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
           editUrl:
-            'https://github.com/ginocowork/TestWiki/edit/main/',
+            'https://github.com/Advantech-IIoT/TestWiki/edit/main/',
         },
 
         blog: false,
@@ -49,7 +49,7 @@ const config = {
           position: 'left',
         },
         {
-          href: 'https://github.com/ginocowork/TestWiki',
+          href: 'https://github.com/Advantech-IIoT/TestWiki',
           label: 'GitHub',
           position: 'right',
         },
