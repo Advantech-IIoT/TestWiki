@@ -1,4 +1,4 @@
-name: Deploy TestWiki
+name: Publish TestWiki image
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   packages: write
 
 concurrency:
-  group: deploy-production
+  group: publish-testwiki-image
   cancel-in-progress: false
 
 env:
@@ -64,31 +64,3 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  deploy:
-    name: Deploy to production
-    needs: build-push
-    runs-on: ubuntu-latest
-    environment: production
-
-    steps:
-      - name: Deploy over SSH
-        uses: appleboy/ssh-action@v1
-        env:
-          IMAGE: ${{ env.IMAGE_NAME }}:${{ github.sha }}
-          GHCR_USER: ${{ github.repository_owner }}
-          # Optional: only required when the GHCR package is private.
-          GHCR_PAT: ${{ secrets.GHCR_PAT }}
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          envs: IMAGE,GHCR_USER,GHCR_PAT
-          script: |
-            set -e
-            if [ -n "$GHCR_PAT" ]; then
-              echo "$GHCR_PAT" | docker login ghcr.io -u "$GHCR_USER" --password-stdin
-            fi
-            docker pull "$IMAGE"
-            docker rm -f testwiki 2>/dev/null || true
-            docker run -d --name testwiki -p 80:80 --restart always "$IMAGE"
-            docker image prune -f
