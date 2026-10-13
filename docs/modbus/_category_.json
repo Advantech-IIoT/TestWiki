@@ -1,0 +1,10 @@
+{
+  "label": "Modbus category json",
+  "position": 3,
+  "collapsed": false,
+  "link": {
+    "type": "generated-index",
+    "title": "Modbus category",
+    "description": "Modbus 使用說明"
+  }
+}
